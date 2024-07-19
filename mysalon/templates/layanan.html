@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+<style>
+    .table.table-bordered.table-striped th, 
+    .table.table-bordered.table-striped td {
+        color: white;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .pagination .btn {
+        margin: 0 5px;
+    }
+</style>
+{% endblock %}
+{% load humanize %}
+
+{% block content %}
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Daftar Layanan Kami</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Daftar Layanan :
+                {% if user.is_staff or user.is_superuser %}
+                    <a href="{% url 'tambahlayanan' %}" class="btn btn-danger">Tambah</a>
+                {% endif %}
+            </h3>
+            <div class="mt-3 mb-3">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="search" placeholder="cari nama" name="cari" class="form-control">
+                </form>
+            </div>
+            <table class="table table-bordered table-striped" style="border: 3px solid white;">
+                <thead>
+                    <tr style="background-color: #dd3944; color: black;">
+                        <th style="border: 3px solid black; color: white; text-align: center;">No</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Foto</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Nama Layanan</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Harga</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Durasi Pengerjaan</th>
+                        {% if user.is_staff or user.is_superuser %}
+                        <th style="border: 3px solid black; color: white; text-align: center;">Action</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for oly in page_obj %}
+                    <tr style="background-color: white; color: black;">
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ forloop.counter }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><img src="{{ oly.foto.url }}" style="width: 70px; height:70px; margin-left:-7px;"></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ oly.namalayanan }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>Rp. {{ oly.harga|intcomma }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ oly.pengerjaan }} Menit</strong></td>
+                        {% if user.is_staff or user.is_superuser %}
+                        <td style="border: 3px solid black; color: black; text-align: center;">
+                            <a href="{% url 'ubahlayanan' oly.namalayanan %}" class="btn btn-warning btn-sm" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" data-username="{{ oly.namalayanan }}" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Pagination Controls -->
+<div class="d-flex justify-content-center mt-4">
+    {% if page_obj.has_previous %}
+        <a href="?page=1" style="margin-right: 10px;">
+            <button type="button" class="btn btn-primary">&laquo; First</button>
+        </a>
+        <a href="?page={{ page_obj.previous_page_number }}" style="margin-right: 10px;">
+            <button type="button" class="btn btn-primary">Previous</button>
+        </a>
+    {% endif %}
+    <span class="current" style="margin-right: 10px;">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" style="margin-right: 10px;">
+            <button type="button" class="btn btn-primary">Next</button>
+        </a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" style="margin-right: 10px;">
+            <button type="button" class="btn btn-primary">Last &raquo;</button>
+        </a>
+    {% endif %}
+</div>
+
+
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-danger btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<!-- Modal Konfirmasi Penghapusan -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white"> <!-- Tambahkan kelas bg-danger untuk warna merah dan text-white untuk warna teks putih -->
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus Layanan <strong id="userName"></strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <form id="deleteForm" method="post" action="#">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var username = button.getAttribute('data-username');
+        var modalUserName = deleteModal.querySelector('#userName');
+        var deleteForm = deleteModal.querySelector('#deleteForm');
+        modalUserName.textContent = username;
+        deleteForm.action = `{% url "hapuslayanan" "dummy" %}`.replace("dummy", username);
+    });
+</script>
+{% endblock %}

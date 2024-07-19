@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="row w-100">
+        <div class="col-md-8 offset-md-2">
+            <h3 class="text-center">Ubah: {{ staf.nama }}</h3>
+            <div class="bg-secondary rounded p-5">
+                <form action="{% url 'ubahstaff' staf.nama %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama Staff</label>
+                        <input type="text" class="form-control form-control-lg" id="nama" name="nama" value="{{ form.nama.value }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control form-control-lg" id="username" name="username" value="{{ form.username.value }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nohp" class="form-label">No. HP</label>
+                        <input type="number" class="form-control form-control-lg" id="nohp" name="nohp" value="{{ form.nohp.value }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <input type="text" class="form-control form-control-lg" id="alamat" name="alamat" value="{{ form.alamat.value }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control form-control-lg" id="email" name="email" value="{{ form.email.value }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label">Password</label>
+                        <input type="password" class="form-control form-control-lg" id="id_password" name="password1" value="{{ form.id_password.value }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password2" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control form-control-lg" id="id_password2" name="password2" value="{{ form.id_password2.value }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">Simpan Perubahan</button>
+                    <a class="btn btn-primary btn-lg" href="/daftarstaff">Kembali</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

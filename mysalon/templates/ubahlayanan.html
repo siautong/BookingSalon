@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="row w-100">
+        <div class="col-md-8 offset-md-2">
+            <h3 class="text-center">Ubah: {{ ly.namalayanan }}</h3>
+            <div class="bg-secondary rounded p-5">
+                <form action="{% url 'ubahlayanan' ly.namalayanan %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="namalayanan" class="form-label">Nama Layanan</label>
+                        <input type="text" class="form-control form-control-lg" id="namalayanan" name="namalayanan" value="{{ form.namalayanan.value }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="harga" class="form-label">Harga</label>
+                        <input type="number" class="form-control form-control-lg" id="harga" name="harga" value="{{ form.harga.value }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="foto" class="form-label">Foto</label>
+                        <input class="form-control bg-dark" type="file" id="foto" name="foto">
+                    </div>
+                    <div class="mb-3">
+                        <label for="pengerjaan" class="form-label">Durasi Pengerjaan</label>
+                        <input type="text" class="form-control form-control-lg" id="pengerjaan" name="pengerjaan" value="{{ form.pengerjaan.value }}">
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="save btn btn-danger">Simpan</button>
+                        <a href="/layanan" class="btn btn-danger">Kembali</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

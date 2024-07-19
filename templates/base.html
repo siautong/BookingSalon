@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLORY SALON</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/animate/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'path/to/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com' %}">
+    <link rel="stylesheet" href="{% static 'https://fonts.gstatic.com' %}">
+    <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Oswald:wght@600&display=swap' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Oswald:wght@600&display=swap" rel="stylesheet">
+
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="path/to/fontawesome.min.css">
+
+<!-- Libraries Stylesheet -->
+<link href="/lib/animate/animate.min.css" rel="stylesheet">
+<link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="/css/style.css" rel="stylesheet">
+
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+        // Inisialisasi Pusher
+        var pusher = new Pusher('32c4883c694ee228d47b', {
+            cluster: 'ap1'
+        });
+
+        // Langganan ke channel
+        var channel = pusher.subscribe('booking-channel');
+        channel.bind('booking-created', function(data) {
+            alert(data.message);
+        });
+    </script>
+
+    
+</head>
+<body style="background-color:dark">
+
+    
+    {%include 'header.html' %}
+    {%block content%}
+    
+    
+    {%endblock%}
+    {%include 'footer.html' %}
+
+    <script src="{% static 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' %}"></script> 
+    <script src="{% static 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' %}"></script> 
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script> 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        // Konfigurasi Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyBay3ZbusFQelScGRnM7IHrr8C3MT-PWbA",
+            authDomain: "glorysalon-6d464.firebaseapp.com",
+            databaseURL: "https://glorysalon-6d464-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "glorysalon-6d464",
+            storageBucket: "glorysalon-6d464.appspot.com",
+            messagingSenderId: "907021096187",
+            appId: "1:907021096187:web:3923e0b0dd669afb9fcc5e",
+            measurementId: "G-TKZK87J1PS"
+        };
+        // Inisialisasi Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const messaging = firebase.messaging();
+
+        // Meminta izin untuk menampilkan notifikasi
+        messaging.requestPermission()
+        .then(function() {
+            console.log('Notification permission granted.');
+            return messaging.getToken();
+        })
+        .then(function(token) {
+            console.log('FCM Token:', token);
+            // Kirim token ke server untuk disimpan
+            fetch('/save_fcm_token/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({token: token})
+            });
+        })
+        .catch(function(err) {
+            console.log('Unable to get permission to notify.', err);
+        });
+
+        // Menangani pesan yang masuk
+        messaging.onMessage(function(payload) {
+            console.log('Message received. ', payload);
+            // Menampilkan notifikasi di browser
+            new Notification(payload.notification.title, {
+                body: payload.notification.body,
+                icon: payload.notification.icon
+            });
+        });
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+<style>
+    .table.table-bordered.table-striped th, 
+    .table.table-bordered.table-striped td {
+        color: white;
+    }
+</style>
+{% endblock %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block content %}
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Daftar Bookingan Anda</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mt-3 mb-3">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="search" placeholder="Mohon Cari dengan Kode Referensi" name="cari" class="form-control">
+                </form>
+            </div>
+            {% if progress_list %}
+            <table class="table table-bordered table-striped" style="border: 3px solid white;">
+                <thead>
+                    <tr style="background-color: #dd3944; color: black;">
+                        <th style="border: 3px solid black; color: white; text-align: center;">No</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Kode Staff</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Kode Booking</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Nama Layanan</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Tanggal</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Waktu</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Harga</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prog in progress_list %}
+                    <tr style="background-color: white; color: black;">
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ forloop.counter }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ prog.kodestaff }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ prog.kode }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ prog.namalayanan }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ prog.tanggal|format_tanggal }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ prog.waktu|format_waktu }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>Rp. {{ prog.harga|intcomma }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;">
+                            <button class="btn btn-warning btn-sm selesai-btn" data-id="{{ prog.id }}">
+                                <i class="bi bi-check-circle-fill" style="font-size: 1.5em; font-weight: bold;"></i> Selesai
+                            </button>
+                            <button class="btn btn-danger btn-sm batal-btn" data-id="{{ prog.id }}">
+                                <i class="bi bi-x-circle-fill" style="font-size: 1.5em; font-weight: bold;"></i> Batal
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-warning text-center" role="alert">
+                Tidak ada Bookingan yang tersedia saat ini.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Selesai -->
+<div class="modal fade" id="selesaiModal" tabindex="-1" aria-labelledby="selesaiModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="selesaiModalLabel">Konfirmasi Penyelesaian</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menyelesaikan bookingan ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                <form id="selesaiForm" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Selesai</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Batal -->
+<div class="modal fade" id="batalModal" tabindex="-1" aria-labelledby="batalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="batalModalLabel">Konfirmasi Pembatalan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin membatalkan bookingan ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                <form id="batalForm" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Batal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tambahkan jQuery dan Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.selesai-btn').on('click', function() {
+            var progressId = $(this).data('id');
+            $('#selesaiForm').attr('action', '{% url "ubah_status_selesai" %}?id=' + progressId);
+            $('#selesaiModal').modal('show');
+        });
+
+        $('.batal-btn').on('click', function() {
+            var progressId = $(this).data('id');
+            $('#batalForm').attr('action', '{% url "ubah_status_batal" %}?id=' + progressId);
+            $('#batalModal').modal('show');
+        });
+    });
+</script>
+
+{% endblock %}

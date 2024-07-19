@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    Konfirmasi Penghapusan Booking
+                </div>
+                <div class="card-body">
+                    <p>Apakah Anda yakin ingin menghapus booking dengan kode referensi <strong>{{ booking.kode }}</strong>?</p>
+                    <p>Nama Layanan: <strong>{{ booking.namalayanan }}</strong></p>
+                    <form method="post" action="{% url 'hapusbooking' booking.kode %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                        <a href="{% url 'booking' %}" class="btn btn-secondary">Kembali</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

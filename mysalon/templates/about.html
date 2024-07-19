@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:wght@400;500&family=Oswald:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="path/to/fontawesome.min.css">
+
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'lib/animate/animate.min.css' %}">
+<link rel="stylesheet" href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css' %}">
+<link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css' %}">
+<link rel="stylesheet" href="{% static 'path/to/fontawesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'https://fonts.googleapis.com' %}">
+<link rel="stylesheet" href="{% static 'https://fonts.gstatic.com' %}">
+<link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css?family=Roboto:wght@400;500&family=Oswald:wght@600&display=swap' %}">
+
+<body style="background-color:black">
+        <!-- Spinner -->
+        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner -->
+        <!-- Header-->
+        <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container text-center py-5">
+                <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">tentang kami</h1>
+            </div>
+        </div>
+        <!-- Header -->
+    
+    
+        <!-- Pengenalan -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="d-flex flex-column">
+                            <img class="img-fluid w-75 align-self-end" src="{% static 'img/about.jpg' %}" alt="">
+                            <div class="w-50 bg-dark p-3" style="margin-top: -25%; margin">
+                                <h1 class="text-uppercase text-danger mb-3">kami memberikan</h1>
+                                <h2 class="text-uppercase mb-0 text-white">pelayanan terbaik</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                        <h1 class="text-uppercase mb-4">kenal glory salon lebih dalam!</h1>
+                        <p> Glory Salon adalah salon kecantikan yang terletak di Kalimantan Barat, Indonesia. Salon ini menawarkan berbagai layanan kecantikan</p>
+                        <p class="mb-4">seperti gunting rambut, blow dry, catok, facial, coloring, rebonding, dan masih banyak lagi!</p>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <h3 class="text-uppercase mb-3">berdiri sejak tahun 2013 hingga sekarang</h3>
+                                <p class="mb-0">Glory salon berdiri sejak tahun 2013 dan telah menjadi Salon favorit dengan harga perawatan yang terjangkau</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="text-uppercase mb-3">lebih dari 100+ Pelanggan</h3>
+                                <p class="mb-0">Glory salon telah membangun koneksi dengan banyak pelanggan secara offline, oleh karena itu kami juga ingin menjangkau pelanggan lebih luas lagi melalui online</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pengenalan -->
+
+        <!-- Team -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+                    <h1 class="text-uppercase">Team Salon</h1>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item">
+                            <div class="team-img position-relative overflow-hidden">
+                                <img class="img-fluid" src="{% static 'img/susan.jpg' %}" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-square" href="https://wa.me/6282148545529"><i class="fab fa-whatsapp"></i></a>
+                                    <a class="btn btn-square" href="https://www.instagram.com/cong.susanti/"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <div class="bg-dark text-center p-4">
+                                <h5 class="text-uppercase">Susanti Cong</h5>
+                                <span class="text-danger"> Professional Hairstylist</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item">
+                            <div class="team-img position-relative overflow-hidden">
+                                <img class="img-fluid" src="{% static 'img/leni.jpg' %}" alt="" style="width: 720px; height: 400px;">
+                                <div class="team-social">
+                                    <a class="btn btn-square" href="https://wa.me/6289514016058"><i class="fab fa-whatsapp"></i></a>
+                                    <a class="btn btn-square" href="https://www.instagram.com/lingleni/"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <div class="bg-dark text-center p-4">
+                                <h5 class="text-uppercase">Leni</h5>
+                                <span class="text-danger">Professional Make Up Artist</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item">
+                            <div class="team-img position-relative overflow-hidden">
+                                <img class="img-fluid" src="{% static 'img/aing.jpg' %}" alt="" style="width: 720px; height: 400px;">
+                                <div class="team-social">
+                                    <a class="btn btn-square" href="https://wasap.at/8mEHkb"><i class="fab fa-whatsapp"></i></a>
+                                    <a class="btn btn-square" href="https://www.instagram.com/stevensandero/"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <div class="bg-dark text-center p-4">
+                                <h5 class="text-uppercase">Margaretha</h5>
+                                <span class="text-danger"> Professional Cosmetologist</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item">
+                            <div class="team-img position-relative overflow-hidden">
+                                <img class="img-fluid" src="{% static 'img/windah.png' %}" alt="" style="width: 720px; height: 400px;">
+                                <div class="team-social">
+                                    <a class="btn btn-square" href="https://wasap.at/8mEHkb"><i class="fab fa-whatsapp"></i></a>
+                                    <a class="btn btn-square" href="https://www.instagram.com/stevensandero/"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                            <div class="bg-dark text-center p-4">
+                                <h5 class="text-uppercase">Windah</h5>
+                                <span class="text-danger"> Professional Hairstylist</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Team -->
+
+
+
+
+
+   <!-- Back to Top -->
+   <a href="#" class="btn btn-lg btn-danger btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+   <!-- Template Javascript -->
+   <script src="js/main.js"></script>
+   <script src="{% static 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' %}"></script> 
+   <script src="{% static 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' %}"></script> 
+   <script src="{% static 'js/main.js' %}"></script>
+   <script src="{% static 'js/script.js' %}"></script>
+   <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+   <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+   <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+   <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+   <script src="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js' %}"></script>
+   <script src="{% static 'https://code.jquery.com/jquery-3.4.1.min.js' %}"></script>
+
+
+
+
+
+</body>
+
+
+{% endblock %}

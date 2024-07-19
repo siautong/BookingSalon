@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/signin.css' %}">
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="login-container">
+
+            <div class="row justify-content-center">
+                <div class="wow fadeInUp" data-wow-delay="0.1s">
+                    <main class="form-signin">
+                        <div class="wrapper">
+                            <div class="logo">
+                                <img src="{% static 'img/logo.png' %}">
+                            </div>
+                            <br>
+                            <div class="text-center mt-4 name">
+                                GANTI PASSWORD
+                            </div>
+                            <br>
+                            <form id="changePasswordForm" action="{% url 'change_pass' %}" method="post">
+                                {% csrf_token %}
+                                <div class="p-3 mt-3">
+                                    {{ form.non_field_errors }}
+                                    <div class="form-floating form-field d-flex align-items-center">
+                                        {{ form.old_password.errors }}
+                                        <input type="password" class="form-control" name="old_password" id="old_password" placeholder="Password Lama">
+                                        <label for="old_password">Masukkan Password Lama</label>
+                                    </div>
+                                    <div class="form-floating form-field d-flex align-items-center">
+                                        {{ form.password1.errors }}
+                                        <input type="password" class="form-control" name="password1" id="new_password1" placeholder="Password Baru">
+                                        <label for="new_password1">Masukkan Password Baru</label>
+                                    </div>
+                                    <div class="form-floating form-field d-flex align-items-center">
+                                        {{ form.password2.errors }}
+                                        <input type="password" class="form-control" name="password2" id="new_password2" placeholder="Konfirmasi Password Baru">
+                                        <label for="new_password2">Konfirmasi Password Baru</label>
+                                    </div>
+                                    <br>
+                                    <button class="w-100 btn btn-lg btn-danger" type="submit">GANTI PASSWORD</button>
+                                </div>
+                            </form>
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

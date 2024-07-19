@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/signin.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<div class="row justify-content-center">
+  <div class="col-md-4">
+    <div class="login-container">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <div class="row justify-content-center">
+        <div class="wow fadeInUp" data-wow-delay="0.1s">
+          <main class="form-signin">
+            <div class="wrapper">
+              <div class="logo">
+                <img src="{% static 'img/logo.png' %}">
+              </div>
+              <br>
+              <div class="text-center mt-4 name">
+                REGISTER ADMIN
+              </div>
+              <br>
+              <form id="registerForm" action="{% url 'registeradmin' %}" method="post">
+                {% csrf_token %}
+                <div class="p-3 mt-3">
+                  
+
+
+
+                  
+                  <div class="form-floating form-field d-flex align-items-center">
+                    <input type="text" class="form-control" name="nama" id="id_nama" placeholder="Nama">
+                    <label for="id_nama">Nama</label>
+                  </div>
+                  <div class="form-floating form-field d-flex align-items-center">
+                    <input type="text" class="form-control" name="alamat" id="id_alamat" placeholder="Alamat">
+                    <label for="id_alamat">Alamat</label>
+                  </div>
+                  <div class="form-floating form-field d-flex align-items-center">
+                    <input type="text" class="form-control" name="nohp" id="id_nohp" placeholder="No HP">
+                    <label for="id_nohp">No HP</label>
+                  </div>
+                  <div class="form-floating form-field d-flex align-items-center">
+                    <input type="email" class="form-control" name="email" id="id_email" placeholder="Email">
+                    <label for="id_email">Email</label>
+                  </div>
+                  <div class="form-floating form-field d-flex align-items-center">
+                    <input type="text" class="form-control" name="username" id="id_username" placeholder="Username">
+                    <label for="id_username">Username</label>
+                  </div>
+                  <div class="form-floating form-field d-flex align-items-center">
+                    <input type="password" class="form-control" name="password1" id="id_password" placeholder="Password">
+                    <label for="id_password">Password</label>
+                  </div>
+                  <div class="form-floating form-field d-flex align-items-center">
+                    <input type="password" class="form-control" name="password2" id="id_password2" placeholder="Confirm Password">
+                    <label for="id_password2">Confirm Password</label>
+                  </div>
+                  <!-- Tambahkan input OTP dan tombol permintaan OTP -->
+                  <div class="form-floating form-field d-flex align-items-center">
+                    <input type="text" class="form-control" name="otp" id="id_otp" placeholder="OTP">
+                    <label for="id_otp">OTP</label>
+                  </div>
+                  <button class="btn btn-sm btn-primary" id="requestOtpBtn">Request OTP</button>
+                  <br><br>
+                  <!-- Akhir dari input OTP dan tombol permintaan OTP -->
+                </div>
+                <button class="w-100 btn btn-lg btn-danger" type="submit" id="registerBtn">REGISTER</button>
+              </form>
+              <small class="d-block text-center mt-3">Sudah punya akun? <a href="{% url 'login' %}">Login Sekarang!</a></small>
+              <small class="d-block text-center mt-3">Anda Owner? <a href="{% url 'registerowner' %}">Register Disini!</a></small>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/signin.js' %}"></script>
+    <script>
+      $(document).ready(function() {
+        // Fungsi untuk mengirim permintaan OTP ke nomor telepon
+        $('#requestOtpBtn').click(function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: '{% url "send_otp" %}',
+            type: 'POST',
+            headers: {
+              'X-CSRFToken': '{{ csrf_token }}'
+          },
+            success: function(data) {
+              alert('OTP telah dikirim ke nomor telepon Anda');
+            },
+            error: function(xhr, textStatus, errorThrown) {
+              alert('Gagal mengirim OTP');
+            }
+          });
+        });
+
+        // Validasi sebelum mengirimkan formulir pendaftaran
+        $('#registerForm').submit(function(e) {
+          // Cek apakah OTP telah dimasukkan
+          if ($('#id_otp').val() === '') {
+            alert('Silakan masukkan OTP yang telah dikirim ke nomor telepon Anda');
+            e.preventDefault(); // Mencegah pengiriman formulir
+          }
+        });
+      });
+    </script>
+  </div>
+</div>
+{% endblock %}

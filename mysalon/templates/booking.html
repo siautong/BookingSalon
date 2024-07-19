@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+<style>
+    .table.table-bordered.table-striped th, 
+    .table.table-bordered.table-striped td {
+        color: white;
+    }
+</style>
+
+
+{% endblock %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block content %}
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-danger" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-3 text-white text-uppercase mb-3 animated slideInDown">Daftar Bookingan Anda</h1>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Daftar Bookingan Anda :
+                <a href="{% url 'tambahbooking' %}" class="btn btn-danger">Tambah</a>
+            </h3>
+            <div class="mt-3 mb-3">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="search" placeholder="Mohon Cari dengan Kode Referensi" name="cari" class="form-control">
+                </form>
+            </div>
+            {% if page_obj %}
+            <table class="table table-bordered table-striped" style="border: 3px solid white;">
+                <thead>
+                    <tr style="background-color: #dd3944; color: black;">
+                        <th style="border: 3px solid black; color: white; text-align: center;">No</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Kode Referensi</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Nama Layanan</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Deskripsi</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Tanggal</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Waktu</th>
+                        <th style="border: 3px solid black; color: white; text-align: center;">Harga</th>
+                        {% if user.is_staff or user.is_superuser %}
+                        <th style="border: 3px solid black; color: white; text-align: center;">Status</th>
+                        {% endif %}
+                        <th style="border: 3px solid black; color: white; text-align: center;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obk in page_obj %}
+                    <tr style="background-color: white; color: black;">
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ forloop.counter }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ obk.kode }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ obk.namalayanan }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ obk.desk }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ obk.tanggal|format_tanggal }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>{{ obk.waktu|format_waktu }}</strong></td>
+                        <td style="border: 3px solid black; color: black; text-align: center;"><strong>Rp. {{ obk.harga|intcomma }}</strong></td>
+                        {% if user.is_staff or user.is_superuser %}
+                        <td style="border: 3px solid black; color: black; text-align: center;">
+                            <form action="{% url 'ubah_status_booking' obk.kode %}" method="post">
+                                {% csrf_token %}
+                                <select name="status" class="form-select" aria-label="Default select example">
+                                    <option value="Belum di ACC" {% if obk.namastatus == 'Belum di ACC' %}selected{% endif %}>Belum di ACC</option>
+                                    <option value="Sudah di ACC" {% if obk.namastatus == 'Sudah di ACC' %}selected{% endif %}>Sudah di ACC</option>
+                                </select>
+                                <button type="submit" class="btn btn-danger btn-sm" title="ACC">
+                                    <i>Ubah</i>
+                                </button>
+                            </form>
+                        </td>
+                        {% endif %}
+                        <td style="border: 3px solid black; color: black; text-align: center;">
+                            <a href="{% url 'viewbooking' obk.kode %}" class="btn btn-secondary btn-sm" title="Detail">
+                                <i class="bi bi-eye-fill"></i>
+                            </a>
+                            <a href="{% url 'ubahbooking' obk.kode %}" class="btn btn-warning btn-sm" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            {% if obk.kode %}
+                            <button class="btn btn-danger btn-sm" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteUrl('{% url 'hapusbooking' obk.kode %}')">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="alert alert-warning text-center" role="alert">
+                Saat ini Anda belum memiliki bookingan, Yuk buat sekarang!
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Pagination Controls -->
+<div class="d-flex justify-content-center mt-4">
+    {% if page_obj.has_previous %}
+        <a href="?page=1" style="margin-right: 10px;">
+            <button type="button" class="btn btn-primary">&laquo; First</button>
+        </a>
+        <a href="?page={{ page_obj.previous_page_number }}" style="margin-right: 10px;">
+            <button type="button" class="btn btn-primary">Previous</button>
+        </a>
+    {% endif %}
+    <span class="current" style="margin-right: 10px;">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" style="margin-right: 10px;">
+            <button type="button" class="btn btn-primary">Next</button>
+        </a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" style="margin-right: 10px;">
+            <button type="button" class="btn btn-primary">Last &raquo;</button>
+        </a>
+    {% endif %}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Penghapusan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus bookingan ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                <form id="deleteForm" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function setDeleteUrl(url) {
+        var form = document.getElementById('deleteForm');
+        form.action = url;
+    }
+</script>
+{% endblock %}

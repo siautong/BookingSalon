@@ -1,0 +1,123 @@
+{% block content %}
+{% load static%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:wght@400;500&family=Oswald:wght@600&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="path/to/fontawesome.min.css">
+
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'lib/animate/animate.min.css' %}">
+<link rel="stylesheet" href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css' %}">
+<link rel="stylesheet" href="{% static 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css' %}">
+<link rel="stylesheet" href="{% static 'path/to/fontawesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'https://fonts.googleapis.com' %}">
+<link rel="stylesheet" href="{% static 'https://fonts.gstatic.com' %}">
+<link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css?family=Roboto:wght@400;500&family=Oswald:wght@600&display=swap' %}">
+
+
+
+ <!-- Footer Start -->
+ <div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-uppercase mb-4">Mari Berkenalan!</h4>
+                <div class="d-flex align-items-center mb-2">
+                    <div class="btn-square bg-dark flex-shrink-0 me-3">
+                        <span class="fa fa-map-marker-alt text-danger"></span>
+                    </div>
+                    <a class="nav-link" style="color: white;" href="https://maps.app.goo.gl/WKpTLxZExezJsRCQ7">Jln.Kapur, Komplek Mekar Sari Residence No.5 (Ruko Glory Salon), Kubu Raya, Indonesia</a>
+
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <div class="btn-square bg-dark flex-shrink-0 me-3">
+                        <span class="fa fa-phone-alt text-danger"></span>
+                    </div>
+                    <a class="nav-link" style="color: white;" href="https://wa.me/6283821721631">083821721631</a>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="btn-square bg-dark flex-shrink-0 me-3">
+                        <span class="fa fa-envelope-open text-danger"></span>
+                    </div>
+                    <a class="nav-link" style="color: white;" href="mailto:sandero.mgmt@gmail.com">sandero.mgmt@gmail.com</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-uppercase mb-4">Tautan Cepat</h4>
+                <a class="nav-link" href="{% url 'index' %}">Home</a>
+                <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                <a class="nav-link" href="{% url 'booking' %}">Daftar Booking</a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-uppercase mb-4">Social Media</h4>
+                <div class="d-flex pt-1 m-n1">
+                    <a class="btn btn-lg-square btn-dark text-danger m-1" href="https://www.instagram.com/glory.salonptk/"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-lg-square btn-dark text-danger m-1" href="https://www.facebook.com/glory.salonptk?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="copyright">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; Glory Salon, All Right Reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+  <!-- Template Javascript -->
+  <script src="js/main.js"></script>
+  <script src="{% static 'https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' %}"></script> 
+  <script src="{% static 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' %}"></script> 
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+  <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+  <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+  <script src="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'https://code.jquery.com/jquery-3.4.1.min.js' %}"></script>
+
+
+{% endblock %}
